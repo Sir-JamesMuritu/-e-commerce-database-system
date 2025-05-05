@@ -63,7 +63,7 @@ Stores actual attribute values per product.
 
 ## 📁 Files Included
 
-- `ecommerce.sql` – Full SQL script for database creation with sample data
+- `e-commerce.sql` – Full SQL script for database creation with sample data
 - `README.md` – Project overview and table descriptions
 - ERD diagram accessible via the link above
 
