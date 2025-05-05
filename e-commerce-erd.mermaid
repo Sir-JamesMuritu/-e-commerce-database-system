@@ -1,0 +1,117 @@
+erDiagram
+    BRAND {
+        int brand_id PK
+        string brand_name
+        string description
+        string logo_url
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PRODUCT_CATEGORY {
+        int category_id PK
+        string category_name
+        string description
+        int parent_category_id FK
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PRODUCT {
+        int product_id PK
+        string product_name
+        int brand_id FK
+        int category_id FK
+        decimal base_price
+        text description
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PRODUCT_IMAGE {
+        int image_id PK
+        int product_id FK
+        string image_url
+        boolean is_primary
+        int display_order
+        datetime created_at
+    }
+    
+    COLOR {
+        int color_id PK
+        string color_name
+        string color_code
+        datetime created_at
+    }
+    
+    SIZE_CATEGORY {
+        int size_category_id PK
+        string category_name
+        string description
+        datetime created_at
+    }
+    
+    SIZE_OPTION {
+        int size_id PK
+        int size_category_id FK
+        string size_name
+        string size_code
+        datetime created_at
+    }
+    
+    PRODUCT_ITEM {
+        int item_id PK
+        int product_id FK
+        string SKU
+        decimal price
+        int quantity_in_stock
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PRODUCT_VARIATION {
+        int variation_id PK
+        int product_item_id FK
+        int size_id FK
+        int color_id FK
+        datetime created_at
+    }
+    
+    ATTRIBUTE_CATEGORY {
+        int attribute_category_id PK
+        string category_name
+        string description
+        datetime created_at
+    }
+    
+    ATTRIBUTE_TYPE {
+        int attribute_type_id PK
+        string type_name
+        string description
+        datetime created_at
+    }
+    
+    PRODUCT_ATTRIBUTE {
+        int attribute_id PK
+        int product_id FK
+        int attribute_category_id FK
+        int attribute_type_id FK
+        string attribute_name
+        string attribute_value
+        datetime created_at
+    }
+    
+    BRAND ||--o{ PRODUCT : has
+    PRODUCT_CATEGORY ||--o{ PRODUCT : categorizes
+    PRODUCT_CATEGORY ||--o{ PRODUCT_CATEGORY : has_subcategory
+    PRODUCT ||--o{ PRODUCT_IMAGE : has
+    PRODUCT ||--o{ PRODUCT_ITEM : has
+    PRODUCT ||--o{ PRODUCT_ATTRIBUTE : has
+    PRODUCT_ITEM ||--o{ PRODUCT_VARIATION : has
+    SIZE_CATEGORY ||--o{ SIZE_OPTION : contains
+    SIZE_OPTION ||--o{ PRODUCT_VARIATION : used_in
+    COLOR ||--o{ PRODUCT_VARIATION : used_in
+    ATTRIBUTE_CATEGORY ||--o{ PRODUCT_ATTRIBUTE : categorizes
+    ATTRIBUTE_TYPE ||--o{ PRODUCT_ATTRIBUTE : defines
